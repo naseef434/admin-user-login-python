@@ -4,8 +4,20 @@ from django.contrib.auth.models import User,auth
 from django.contrib import messages
 
 def adminLogin(request):
-    return render(request,'admin_login.html')
-
+    if request.method == "POST":
+        p_username  = "naseef"
+        p_password = "1234"
+        username = request.POST['username']
+        password =  request.POST['password']
+        if username == p_username and password:
+            messages.info(request, ' Loged in')
+            list = User.objects.all()
+            return render(request, 'admin_dashboard.html',{'datas':list})
+        else:
+            messages.error(request, ' Wrong username/password!')
+            return render(request, 'admin_login.html')   
+    return render(request, 'admin_login.html')      
+    
 def adminDashboard(request):
     # return HttpResponse("Hello naseef")
     return render(request, 'admin_dashboard.html')
@@ -56,8 +68,6 @@ def userDashboard(request):
     else:
         return redirect(userLogin)    
     
-def simple(request):
-    return render(request, 'simple.html')
 
 def logoutuser(request):
     #auth user logout
