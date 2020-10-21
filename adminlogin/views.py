@@ -43,6 +43,13 @@ def update(request,id):
         return redirect(adminDashboard)
     else:
         return redirect(adminDashboard)
+
+def destroy(request, id):  
+    user = User.objects.get(id=id)  
+    user.delete()  
+    messages.info(request,"Deleted Successfully")
+    return redirect(adminDashboard)
+
 def userRegistration(request):
     #check request method post
     if request.method == "POST":

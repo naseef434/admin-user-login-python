@@ -26,12 +26,7 @@
                         <table class="table table-borderless table-hover">
                           <thead>
                             <tr>
-                              <th>
-                                <div class="custom-control custom-checkbox">
-                                  <input type="checkbox" class="custom-control-input" id="all2">
-                                  <label class="custom-control-label" for="all2"></label>
-                                </div>
-                              </th>
+                              
                               <th><strong>ID</strong></th>
                               <th><strong>User Name</strong></th>
                               <th><strong>Fisrt name</strong></th>
@@ -46,12 +41,7 @@
       
                          {% for item in datas %}
                             <tr>
-                              <td>
-                                <div class="custom-control custom-checkbox">
-                                  <input type="checkbox" class="custom-control-input" id="2474">
-                                  <label class="custom-control-label" for="2474"></label>
-                                </div>
-                              </td>
+                             
                               <td>
                                 <p class="mb-0 text-muted"><strong>{{ item.id }}</strong></p>
                               </td>
@@ -71,13 +61,9 @@
                                 <p class="mb-0 text-muted"><strong>{{ item.email }}</strong></p>
                                
                               </td>
-                              <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <span class="text-muted sr-only">Action</span>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                  <a class="dropdown-item" href="/edit/{{ item.id }}">Edit</a>
-                                  <a class="dropdown-item" href="#">Remove</a>
-                                </div>
+                              <td><a href="/edit/{{ item.id }}"><span class="fe fe-edit fe-12 mr-4"></span></a>
+                                
+                                <a href="/delete/{{ item.id }}"><span class="fe fe-trash fe-12 mr-4"></span></a>
                               </td>
                             </tr>
                             {% endfor %}
