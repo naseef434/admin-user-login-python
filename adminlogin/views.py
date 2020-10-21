@@ -10,6 +10,7 @@ def adminLogin(request):
         username = request.POST['username']
         password =  request.POST['password']
         if username == p_username and password:
+            request.session['username'] = username
             messages.info(request, ' Loged in')
             return redirect(adminDashboard)
         else:
@@ -18,9 +19,18 @@ def adminLogin(request):
     return render(request, 'admin_login.html')      
     
 def adminDashboard(request):
-    list = User.objects.all()
-    return render(request, 'admin_dashboard.html',{'datas':list})
-
+    if request.session.has_key('username'):
+        list = User.objects.all()
+        return render(request, 'admin_dashboard.html',{'datas':list})
+    else:
+        return redirect('/adminlogin')    
+def logout(request):
+    if request.session.has_key('username'):
+        request.session.flush()
+        return redirect('/adminlogin')    
+    else:
+        pass
+    return render(request, 'admin_login.html')     
 def edit(request,id):
     user = User.objects.get(id=id)
     return render(request, 'edit.html',{'user':user})
@@ -98,6 +108,5 @@ def userDashboard(request):
     
 
 def logoutuser(request):
-    #auth user logout
     auth.logout(request)
     return redirect('/')

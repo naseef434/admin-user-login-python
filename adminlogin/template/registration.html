@@ -1,3 +1,4 @@
+
 {% load static %}
 <!doctype html>
 <html lang="en">
@@ -23,7 +24,7 @@
   <body class="light ">
     <div class="wrapper vh-100">
       <div class="row align-items-center h-100">
-        <form class="col-lg-6 col-md-8 col-10 mx-auto" action="{% url 'registration' %}" method="POST">
+        <form class="col-lg-6 col-md-8 col-10 mx-auto" action="{% url 'registration' %}" method="POST" id="myForm">
           {% csrf_token %}
           <div class="mx-auto text-center my-4">
             <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
@@ -35,81 +36,129 @@
                 </g>
               </svg>
             </a>
-            <h2 class="my-3">Register</h2>
-          </div>
-          <div class="form-group">
-            <label for="inputEmail4">Email</label>
-            <input type="email" class="form-control" id="inputEmail4" name="email">
+            <h2 class="my-3">User Registration</h2>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="firstname">Firstname</label>
               <input type="text" id="firstname" class="form-control" name="first_name">
+              <p id="message1"></p>
             </div>
             <div class="form-group col-md-6">
               <label for="lastname">Lastname</label>
               <input type="text" id="lastname" class="form-control" name="last_name">
+              <p id="message2"></p>
             </div>
           </div>
           <div class="form-group">
             <label for="inputEmail4">User name</label>
-            <input type="text" class="form-control" id="inputEmail4" name="username">
+            <input type="text" class="form-control" id="username" name="username">
+            <p id="message3"></p>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail4">Email</label>
+            <input type="email" class="form-control" name="email" id="email">
+            <p id="message4"></p>
           </div>
           <hr class="my-4">
           <div class="row mb-4">
             <div class="col-md-6">
               <div class="form-group">
                 <label for="inputPassword5">New Password</label>
-                <input type="password" class="form-control" id="inputPassword5" name="password">
-              </div>
-              <div class="form-group">
-                <label for="inputPassword6">Confirm Password</label>
-                <input type="password" class="form-control" id="inputPassword6">
+                <input type="password" class="form-control" id="password" name="password">
+                <p id="message5"></p>
               </div>
             </div>
             <div class="col-md-6">
-              <p class="mb-2">Password requirements</p>
-              <p class="small text-muted mb-2"> To create a new password, you have to meet all of the following requirements: </p>
-              <ul class="small text-muted pl-4 mb-0">
-                <li> Minimum 8 character </li>
-                <li>At least one special character</li>
-                <li>At least one number</li>
-                <li>Can’t be the same as a previous password </li>
-              </ul>
+              <div class="form-group">
+                <label for="inputPassword6">Confirm Password</label>
+                <input type="password" class="form-control" id="c_password" name="c_password" required>
+                <p id="message6"></p>
+              </div>
             </div>
+            
           </div>
           <!--<button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>-->
-          <input type="submit" class="fadeIn fourth" value="Log In">
+          
+          <input type="submit" class="btn mb-2 btn-primary btn-lg btn-block fadeIn fourth" id="submit_btn" value="Log In">
           {% for message in messages %}
-            <p>{{message}}</p>
-            {% endfor %}
-          <p class="mt-5 mb-3 text-muted text-center">© 2020</p>
+          
+            <p><strong>{{message}}</p></strong>
+      
+          {% endfor %}
+         
         </form>
       </div>
     </div>
-    <script src="{ static 'js/jquery.min.js' %}"></script>
-    <script src="{ static 'js/popper.min.js' %}"></script>
-    <script src="{ static 'js/moment.min.js' %}"></script>
-    <script src="{ static 'js/bootstrap.min.js' %}"></script>
-    <script src="{ static 'js/simplebar.min.js' %}"></script>
-    <script src="{ static 'js/daterangepicker.js' %}'"></script>
-    <script src="{ static 'js/jquery.stickOnScroll.js' %}"></script>
-    <script src="{ static 'js/tinycolor-min.js' %}"></script>
-    <script src="{ static 'js/config.js' %}"></script>
-    <script src="{ static 'js/apps.js' %}"></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
+    
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+  /* ==========================================================================
+   CONTACT FORM JS
+   ========================================================================== */
 
-      function gtag()
-      {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'UA-56159088-1');
-    </script>
-  </body>
-</html>
+   $(document).ready(function() {
+      $("#submit_btn").click(function() { 
+          //get input field values
+          var first_name       = $('input[name=first_name]').val(); 
+          var last_name        = $('input[name=last_name]').val();
+          var username         = $('input[name=username]').val();
+          var email            = $('input[name=email]').val();
+          var password         = $('input[name=password]').val();
+          var c_password       = $('input[name=c_password]').val();
+          
+          //simple validation at client's end
+          //we simply change border color to red if empty field using .css()
+          var proceed = true;
+          if(first_name==""){ 
+              $('input[name=first_name]').css('border-color','red'); 
+              document.getElementById("message1").innerHTML = "Please fill your first_name";
+              proceed = false;
+          }
+          if(last_name==""){ 
+              $('input[name=last_name]').css('border-color','red'); 
+              document.getElementById("message2").innerHTML = "Please fill Your last_name";
+              proceed = false;
+          }
+          if(username=="") {    
+              $('input[name=username]').css('border-color','red'); 
+              document.getElementById("message3").innerHTML = "Please fill your username";
+              proceed = false;
+          }
+          if(email=="") {  
+              $('input[name=email]').css('border-color','red'); 
+              document.getElementById("message4").innerHTML = "Please fill your email";
+              proceed = false;
+          }
+          if(password=="") {  
+              $('input[name=password]').css('border-color','red'); 
+              document.getElementById("message5").innerHTML = "Please fill your password";
+              proceed = false;
+          }
+          if(c_password=="") {  
+              $('input[name=c_password]').css('border-color','red'); 
+              document.getElementById("message6").innerHTML = "Please confirm your password";
+              proceed = false;
+          }
+          //everything looks good! proceed...
+        
+      });
+      
+      //reset previously set border colors and hide all message on .keyup()
+      $("#contact_form input, #contact_form textarea").keyup(function() { 
+          $("#contact_form input, #contact_form textarea").css('border-color',''); 
+          $("#result").slideUp();
+      });
+      
+  });
+</script>
+<script type="text/javascript"> 
+  setTimeout(function () { 
+
+      // Closing the alert 
+      $('#alert').alert('close'); 
+  }, 3000); 
+</script> 
+
 </body>
 </html>

@@ -1,8 +1,17 @@
 {% extends 'app.html' %}
   {% load static %}
+  {% block logout%}
+  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+    <a class="dropdown-item" href="{{'/logoutuser/'}}">Logout</a> 
+  </div>
+  {%endblock logout%}
     {% block content %}
   
             <div class="col-12">
-              <h1 class="page-title">Let's start</h1>
+              <h1 class="page-title">User Dashboard</h1>
             </div> <!-- .col-12 --> 
     {% endblock content %}
+
+    {% block footer %}
+    
+    {% endblock footer %}
