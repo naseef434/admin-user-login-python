@@ -11,17 +11,38 @@ def adminLogin(request):
         password =  request.POST['password']
         if username == p_username and password:
             messages.info(request, ' Loged in')
-            list = User.objects.all()
-            return render(request, 'admin_dashboard.html',{'datas':list})
+            return redirect(adminDashboard)
         else:
             messages.error(request, ' Wrong username/password!')
             return render(request, 'admin_login.html')   
     return render(request, 'admin_login.html')      
     
 def adminDashboard(request):
-    # return HttpResponse("Hello naseef")
-    return render(request, 'admin_dashboard.html')
+    list = User.objects.all()
+    return render(request, 'admin_dashboard.html',{'datas':list})
 
+def edit(request,id):
+    user = User.objects.get(id=id)
+    return render(request, 'edit.html',{'user':user})
+
+def update(request,id):
+    user = User.objects.get(id=id)
+    if request.method == "POST":
+        email = request.POST['email']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        username = request.POST['username']
+        password = request.POST['password']
+        user.email=email
+        user.first_name = first_name
+        user.last_name = last_name
+        user.username = username
+        user.password = password
+        user.save();
+        messages.success(request,"Updated Successfully")
+        return redirect(adminDashboard)
+    else:
+        return redirect(adminDashboard)
 def userRegistration(request):
     #check request method post
     if request.method == "POST":

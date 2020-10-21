@@ -9,6 +9,8 @@ urlpatterns = [
     path('adminlogin/',views.adminLogin, name="adminlogin"),
     path('dashboard1/',views.adminDashboard),
     path('logoutuser/',views.logoutuser),
+    path('edit/<int:id>', views.edit),  
+    path('update/<int:id>', views.update),  
     # path('userLogin/',views.userLogin, name="userLogin")
 
    
