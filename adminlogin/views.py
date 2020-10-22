@@ -26,7 +26,7 @@ def adminDashboard(request):
         return redirect('/adminlogin')    
 def logout(request):
     if request.session.has_key('username'):
-        request.session.flush()
+        del request.session['username']
         return redirect('/adminlogin')    
     else:
         pass
@@ -109,4 +109,24 @@ def userDashboard(request):
 
 def logoutuser(request):
     auth.logout(request)
-    return redirect('/')
+    return redirect(userLogin)
+
+def adminCreateUser(request):
+    if request.session.has_key('username'):
+        if request.method == "POST":
+            email = request.POST['email']
+            first_name = request.POST['first_name']
+            last_name = request.POST['last_name']
+            username = request.POST['username']
+            password = request.POST['password']
+            #check user name already exist in model
+            if User.objects.filter(username=username).exists():
+                messages.error(request, ' User name already exist')
+                return redirect(adminDashboard)
+            else:
+                #inserting data in to User model
+                user = User.objects.create_user(username=username,email=email, first_name=first_name, last_name=last_name,password=password)
+                user.save();
+                return redirect(adminDashboard)    
+    else:
+        return HttpResponse("engotta")

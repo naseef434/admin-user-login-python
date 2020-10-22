@@ -13,7 +13,7 @@ urlpatterns = [
     path('update/<int:id>', views.update),  
     path('delete/<int:id>', views.destroy), 
     path('logoutadmin/',views.logout), 
-    # path('userLogin/',views.userLogin, name="userLogin")
+    path('adminCreateUser/',views.adminCreateUser, name="adminCreateUser")
 
    
 ]

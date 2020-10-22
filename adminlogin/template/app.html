@@ -34,7 +34,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="avatar avatar-sm mt-2">
-                <img src="{%static './assets/avatars/face-1.jpg' %}" alt="..." class="avatar-img rounded-circle">
+                <img src="{%static './assets/avatars/me.jpg' %}" alt="..." class="avatar-img rounded-circle">
               </span>
             </a>
             {% block logout %}
@@ -80,7 +80,7 @@
         </div> <!-- .container-fluid -->
       </main> <!-- main -->
     </div> <!-- .wrapper -->
-    {% block footer %}
+    
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/moment.min.js' %}"></script>
@@ -103,6 +103,8 @@
       gtag('js', new Date());
       gtag('config', 'UA-56159088-1');
     </script>
+
+
     <script type="text/javascript"> 
       setTimeout(function () { 
   
@@ -110,7 +112,27 @@
           $('#alert').alert('close'); 
       }, 3000); 
   </script> 
-    {% endblock footer %}
     
+     <script>
+                function myFunction() {
+                  var input, filter, table, tr, td, i, txtValue;
+                  input = document.getElementById("myInput");
+                  filter = input.value.toUpperCase();
+                  table = document.getElementById("myTable");
+                  tr = table.getElementsByTagName("tr");
+                  for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[1];
+                    if (td) {
+                      txtValue = td.textContent || td.innerText;
+                      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                      } else {
+                        tr[i].style.display = "none";
+                      }
+                    }       
+                  }
+                }
+                </script>
+                
   </body>
 </html>

@@ -74,9 +74,10 @@
                 <label for="inputPassword6">Confirm Password</label>
                 <input type="password" class="form-control" id="c_password" name="c_password" required>
                 <p id="message6"></p>
+                <p id="message7"></p>
               </div>
             </div>
-            
+            <input type="password" class="form-control"  required>
           </div>
           <!--<button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>-->
           
@@ -115,32 +116,69 @@
               document.getElementById("message1").innerHTML = "Please fill your first_name";
               proceed = false;
           }
+          else if(first_name!=""){ 
+            $('input[name=first_name]').css('border-color','white'); 
+            document.getElementById("message1").innerHTML = "";
+            proceed = true;
+          }
           if(last_name==""){ 
               $('input[name=last_name]').css('border-color','red'); 
               document.getElementById("message2").innerHTML = "Please fill Your last_name";
               proceed = false;
+          } else if(last_name!=""){ 
+            $('input[name=last_name]').css('border-color','white'); 
+            document.getElementById("message2").innerHTML = "";
+            proceed = true;
           }
           if(username=="") {    
               $('input[name=username]').css('border-color','red'); 
               document.getElementById("message3").innerHTML = "Please fill your username";
               proceed = false;
           }
+          else if(username!=""){ 
+            $('input[name=username]').css('border-color','white'); 
+            document.getElementById("message3").innerHTML = "";
+            proceed = true;
+          }
           if(email=="") {  
               $('input[name=email]').css('border-color','red'); 
               document.getElementById("message4").innerHTML = "Please fill your email";
               proceed = false;
+          }
+          else if(email!=""){ 
+            $('input[name=email]').css('border-color','white'); 
+            document.getElementById("message4").innerHTML = "";
+            proceed = true;
           }
           if(password=="") {  
               $('input[name=password]').css('border-color','red'); 
               document.getElementById("message5").innerHTML = "Please fill your password";
               proceed = false;
           }
+          else if(password!=""){ 
+            $('input[name=password]').css('border-color','white'); 
+            document.getElementById("message5").innerHTML = "";
+            proceed = true;
+          }
           if(c_password=="") {  
               $('input[name=c_password]').css('border-color','red'); 
               document.getElementById("message6").innerHTML = "Please confirm your password";
               proceed = false;
           }
-          //everything looks good! proceed...
+          else if(c_password!=""){ 
+            $('input[name=c_password]').css('border-color','white'); 
+            document.getElementById("message6").innerHTML = "";
+            proceed = true;
+          }
+          if (password != c_password) { 
+            document.getElementById("message7").innerHTML = "Password didnot match!";
+              proceed = false;
+                } 
+          else if(password == c_password) { 
+            $('input[name=c_password]').css('border-color','white'); 
+            document.getElementById("message7").innerHTML = "";
+            proceed = true;
+          }
         
       });
       
